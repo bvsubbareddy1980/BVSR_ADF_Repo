@@ -5,6 +5,9 @@
 		"factoryName": {
 			"value": "BVSR-ADF-GIT"
 		},
+		"AzureBlobStorage1_connectionString": {
+			"value": ""
+		},
 		"containerUri": {
 			"value": ""
 		},
