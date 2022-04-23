@@ -1,0 +1,9 @@
+{
+	"name": "BVSR-ADF-GIT",
+	"location": "southindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "1d0370d8-b4d7-49e1-9def-16fa5b7a7e07",
+		"tenantId": "6b338081-ec7e-4a77-857a-3a912b06271a"
+	}
+}
