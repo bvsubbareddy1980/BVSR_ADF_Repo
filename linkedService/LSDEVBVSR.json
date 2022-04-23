@@ -1,0 +1,19 @@
+{
+	"name": "LSDEVBVSR",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "LInked service creating using Keyvalut",
+		"annotations": [],
+		"type": "AzureBlobStorage",
+		"typeProperties": {
+			"connectionString": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "LS_AKV_DEV",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "SEC-DEV-AKV-BVSR"
+			}
+		}
+	}
+}

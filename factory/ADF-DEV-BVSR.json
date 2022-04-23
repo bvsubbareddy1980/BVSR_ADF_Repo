@@ -1,0 +1,9 @@
+{
+	"name": "ADF-DEV-BVSR",
+	"location": "southindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "185d2cdc-68b3-4ca7-9c14-8d1cec407f3d",
+		"tenantId": "6b338081-ec7e-4a77-857a-3a912b06271a"
+	}
+}
