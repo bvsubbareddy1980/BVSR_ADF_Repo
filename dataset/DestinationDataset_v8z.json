@@ -1,0 +1,23 @@
+{
+	"name": "DestinationDataset_v8z",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADF_Practice",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "emp",
+				"folderPath": "SQL",
+				"container": "bvsr-container-demo"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
