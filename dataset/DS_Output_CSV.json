@@ -1,0 +1,30 @@
+{
+	"name": "DS_Output_CSV",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADF_Practice",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "BVSR",
+				"container": "bvsr-container-demo"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			}
+		]
+	}
+}

@@ -1,0 +1,41 @@
+{
+	"name": "DS_CSV",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADF_Practice",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Emp_New_Unwanted_data.csv",
+				"folderPath": "BVSR",
+				"container": "bvsr-container-demo"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "adsgl ,",
+				"type": "String"
+			},
+			{
+				"name": "sakjghas",
+				"type": "String"
+			},
+			{
+				"name": "dgsd,",
+				"type": "String"
+			},
+			{
+				"name": "ad,g",
+				"type": "String"
+			}
+		]
+	}
+}
