@@ -190,6 +190,81 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/PL_Multi')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ExcelSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".csv"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ExDS_Excel",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_Excel",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ExDS_Excel')]",
+				"[concat(variables('factoryId'), '/datasets/DS_Excel')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DS_CSV')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -314,6 +389,59 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/DS_Excel')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_ADF_Practice",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"folderPath": "Output1",
+						"container": "bvsr-container-demo"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "empid",
+						"type": "String"
+					},
+					{
+						"name": "ename",
+						"type": "String"
+					},
+					{
+						"name": "country",
+						"type": "String"
+					},
+					{
+						"name": "sal ",
+						"type": "String"
+					},
+					{
+						"name": "deptid",
+						"type": "String"
+					},
+					{
+						"name": "Emp_move_Copy.csv",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_ADF_Practice')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DS_Output_CSV')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -371,6 +499,274 @@
 					"quoteChar": "\""
 				},
 				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_ADF_Practice')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ExDS_Excel')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_ADF_Practice",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Excel",
+				"typeProperties": {
+					"sheetName": "Sheet1",
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "WF360-Career Velocity_Current Year_Quarter.xlsx",
+						"folderPath": "SQL",
+						"container": "bvsr-container-demo"
+					},
+					"firstRowAsHeader": true
+				},
+				"schema": [
+					{
+						"name": "EFFECTIVE_DATE",
+						"type": "String"
+					},
+					{
+						"name": "CNUM",
+						"type": "String"
+					},
+					{
+						"name": "METRIC_TYPE",
+						"type": "String"
+					},
+					{
+						"name": "AGREEMENT_CODE",
+						"type": "String"
+					},
+					{
+						"name": "EMPLOYEE_STATUS_CODE",
+						"type": "String"
+					},
+					{
+						"name": "BAND_CODE",
+						"type": "String"
+					},
+					{
+						"name": "SALARY_BAND_DATE",
+						"type": "String"
+					},
+					{
+						"name": "PREV_SALARY_BAND_CODE",
+						"type": "String"
+					},
+					{
+						"name": "PREV_SALARY_BAND_DATE",
+						"type": "String"
+					},
+					{
+						"name": "IS CIC",
+						"type": "String"
+					},
+					{
+						"name": "INDUSTRY",
+						"type": "String"
+					},
+					{
+						"name": "PRACTICE",
+						"type": "String"
+					},
+					{
+						"name": "SECTOR",
+						"type": "String"
+					},
+					{
+						"name": "SERVICE_GROUP",
+						"type": "String"
+					},
+					{
+						"name": "GROWTH_PLATFORM",
+						"type": "String"
+					},
+					{
+						"name": "PRIMARY_JOB_CATEGORY_NAME",
+						"type": "String"
+					},
+					{
+						"name": "JOB_CATEGORY_NAME",
+						"type": "String"
+					},
+					{
+						"name": "COMPANY_ID",
+						"type": "String"
+					},
+					{
+						"name": "Dark Light Blue ID",
+						"type": "String"
+					},
+					{
+						"name": "COMPANY_CODE",
+						"type": "String"
+					},
+					{
+						"name": "HIRE_DATE",
+						"type": "String"
+					},
+					{
+						"name": "TECHNICAL_JOB_ROLE_INDICATOR",
+						"type": "String"
+					},
+					{
+						"name": "GENDER_CODE",
+						"type": "String"
+					},
+					{
+						"name": "RACE_NAME",
+						"type": "String"
+					},
+					{
+						"name": "RACE_2_NAME",
+						"type": "String"
+					},
+					{
+						"name": "DEPARTMENT",
+						"type": "String"
+					},
+					{
+						"name": "DIVISION",
+						"type": "String"
+					},
+					{
+						"name": "GEOGRAPHY_ID",
+						"type": "String"
+					},
+					{
+						"name": "REGION_ID",
+						"type": "String"
+					},
+					{
+						"name": "SUBREGION_ID",
+						"type": "String"
+					},
+					{
+						"name": "COUNTRY_ID",
+						"type": "String"
+					},
+					{
+						"name": "ALT_GEO_ID",
+						"type": "String"
+					},
+					{
+						"name": "ALT_REGION_ID",
+						"type": "String"
+					},
+					{
+						"name": "GROUP_ID",
+						"type": "String"
+					},
+					{
+						"name": "BUSINESS_UNIT_ID",
+						"type": "String"
+					},
+					{
+						"name": "ORG_ID",
+						"type": "String"
+					},
+					{
+						"name": "GROUPING_CODE_1",
+						"type": "String"
+					},
+					{
+						"name": "GROUPING_CODE_2",
+						"type": "String"
+					},
+					{
+						"name": "ENTITY_ID",
+						"type": "String"
+					},
+					{
+						"name": "FUNDING_GROUP",
+						"type": "String"
+					},
+					{
+						"name": "FUNDING_GROUP_2",
+						"type": "String"
+					},
+					{
+						"name": "SCORECARD_GROUP",
+						"type": "String"
+					},
+					{
+						"name": "SCORECARD_SUMMARY",
+						"type": "String"
+					},
+					{
+						"name": "MANAGER_INDICATOR",
+						"type": "String"
+					},
+					{
+						"name": "JOB_ROLE_DESCRIPTION",
+						"type": "String"
+					},
+					{
+						"name": "JOB_SPECIALITY_DESCRIPTION",
+						"type": "String"
+					},
+					{
+						"name": "COMMISSION_INDICATOR",
+						"type": "String"
+					},
+					{
+						"name": "COUNTRY_CODE",
+						"type": "String"
+					},
+					{
+						"name": "DISTINGUISHED_ENGINEER_INDICATOR",
+						"type": "String"
+					},
+					{
+						"name": "LOCAL_SALARY_BAND_CODE",
+						"type": "String"
+					},
+					{
+						"name": "LOCAL_SALARY_BAND_DATE",
+						"type": "String"
+					},
+					{
+						"name": "PREV_LOCAL_SALARY_BAND_CODE",
+						"type": "String"
+					},
+					{
+						"name": "PREV_LOCAL_SALARY_BAND_DATE",
+						"type": "String"
+					},
+					{
+						"name": "SUPPORT_FUNCTION",
+						"type": "String"
+					},
+					{
+						"name": "SUPPORT_SUBFUNCTION",
+						"type": "String"
+					},
+					{
+						"name": "SUPPORT_SUBFUNCTION_2",
+						"type": "String"
+					},
+					{
+						"name": "SUPPORT_SUBFUNCTION_3",
+						"type": "String"
+					},
+					{
+						"name": "SUPPORT_SUBFUNCTION_4",
+						"type": "String"
+					},
+					{
+						"name": "SUPPORT_SUBFUNCTION_5",
+						"type": "String"
+					},
+					{
+						"name": "PSI_CODE",
+						"type": "String"
+					}
+				]
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_ADF_Practice')]"
